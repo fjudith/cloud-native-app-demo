@@ -1,0 +1,78 @@
+name: API Container Images
+
+on:
+ push:
+  paths:
+    - 'src/**'
+    - 'test/**'
+    - '.github/workflows/api_container_images.yaml'
+  pull_request:
+    paths:
+    - 'src/**'
+    - 'test/**'
+    - '.github/workflows/api_container_images.yaml'
+
+env:
+  DOCKER_REPO: "fjudith"
+
+jobs:
+  build:
+    name: "Build OCI image: ${{ matrix.image }}"
+    runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        image:
+          - lifeintruderservice
+
+    steps:
+      - uses: FranzDiebold/github-env-vars-action@v1.2.1
+
+      - name: Checkout code base
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          install: true
+      
+      - name: Set ENV variables
+        run: |
+          cat ./src/${{ matrix.image }}/.env >> $GITHUB_ENV
+      
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      
+      - name: Login to quay.io
+        uses: docker/login-action@v1 
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }} 
+
+      - name: Build & Push image to Docker
+        id: dockerhub
+        uses: docker/build-push-action@v2
+        with:
+          context: ./src/${{ matrix.image }}
+          push: true
+          tags: docker.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:${{ env.SEMVER_MAJOR }},docker.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:${{ env.SEMVER_MINOR }},docker.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:${{ env.SEMVER_PATCH }},docker.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:${{ env.SEMVER_TAG }},docker.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:latest
+          file: ./src/${{ matrix.image }}/Dockerfile
+          platforms: linux/amd64
+      
+      - name: Push image to Quay
+        id: quay
+        uses: docker/build-push-action@v2
+        with:
+          context: ./src/${{ matrix.image }}
+          push: true
+          tags: quay.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:${{ env.SEMVER_MAJOR }},quay.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:${{ env.SEMVER_MINOR }},quay.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:${{ env.SEMVER_PATCH }},quay.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:${{ env.SEMVER_TAG }},quay.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:latest
+          file: ${{ env.DOCKERFILE }}
+          platforms: linux/amd64

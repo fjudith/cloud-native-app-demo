@@ -1,0 +1,472 @@
+{
+	"info": {
+		"_postman_id": "f1db0439-8cd0-496e-a6e2-a43d2f1da238",
+		"name": "Open Policy Agent",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "basic",
+					"item": [
+						{
+							"name": "Anonymous get methods",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"663dc85d-2455-466c-b2e5-76691b0ce14e\",\r\n    \"model\": \"Renault\",\r\n    \"vehicle_id\": \"123456\",\r\n    \"owner_id\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Anonymous restreives cars",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"663dc85d-2455-466c-b2e5-76691b0ce14e\",\r\n    \"model\": \"Renault\",\r\n    \"vehicle_id\": \"123456\",\r\n    \"owner_id\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cars",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Kelly add car",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "kelly",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"abcdefgh-1234-abcd-1234-abcd1234abcd\",\r\n    \"model\": \"Renault\",\r\n    \"vehicle_id\": \"123456\",\r\n    \"owner_id\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cars/abcdefgh-1234-abcd-1234-abcd1234abcd",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cars",
+										"abcdefgh-1234-abcd-1234-abcd1234abcd"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "James add car",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "james",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"12345678-abcd-1234-abcd-1234abcd1234\",\r\n    \"model\": \"Peugeot\",\r\n    \"vehicle_id\": \"654321\",\r\n    \"owner_id\": \"4321\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cars/12345678-abcd-1234-abcd-1234abcd1234",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cars",
+										"12345678-abcd-1234-abcd-1234abcd1234"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alice add car",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "alice",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"12345678-abcd-1234-abcd-1234abcd1234\",\r\n    \"model\": \"Peugeot\",\r\n    \"vehicle_id\": \"654321\",\r\n    \"owner_id\": \"4321\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cars/12345678-abcd-1234-abcd-1234abcd1234",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cars",
+										"12345678-abcd-1234-abcd-1234abcd1234"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Kelly restreives cars",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "kelly",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"663dc85d-2455-466c-b2e5-76691b0ce14e\",\r\n    \"model\": \"Renault\",\r\n    \"vehicle_id\": \"123456\",\r\n    \"owner_id\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cars",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "James restreives cars",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "james",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"663dc85d-2455-466c-b2e5-76691b0ce14e\",\r\n    \"model\": \"Renault\",\r\n    \"vehicle_id\": \"123456\",\r\n    \"owner_id\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cars",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alice restreives cars",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "alice",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"663dc85d-2455-466c-b2e5-76691b0ce14e\",\r\n    \"model\": \"Renault\",\r\n    \"vehicle_id\": \"123456\",\r\n    \"owner_id\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/cars",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Kelly add car status",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "kelly",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"abcdefgh-1234-abcd-1234-abcd1234abcd\",\r\n    \"position\": {\r\n        \"latitude\": 48.877898,\r\n        \"longitude\": 2.408787\r\n    },\r\n    \"mileage\": 17384,\r\n    \"speed\": 130,\r\n    \"fuel\": 7.6\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/cars/abcdefgh-1234-abcd-1234-abcd1234abcd/status",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"cars",
+										"abcdefgh-1234-abcd-1234-abcd1234abcd",
+										"status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "James add car status",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "james",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"12345678-abcd-1234-abcd-1234abcd1234\",\r\n    \"position\": {\r\n        \"latitude\": 51.554231,\r\n        \"longitude\": 6.970130\r\n    },\r\n    \"mileage\": 17384,\r\n    \"speed\": 130,\r\n    \"fuel\": 1.8\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/cars/12345678-abcd-1234-abcd-1234abcd1234/status",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"cars",
+										"12345678-abcd-1234-abcd-1234abcd1234",
+										"status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alice add car status",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "alice",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"12345678-abcd-1234-abcd-1234abcd1234\",\r\n    \"position\": {\r\n        \"latitude\": 51.554231,\r\n        \"longitude\": 6.970130\r\n    },\r\n    \"mileage\": 17384,\r\n    \"speed\": 210,\r\n    \"fuel\": 1.8\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cars/12345678-abcd-1234-abcd-1234abcd1234/status",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cars",
+										"12345678-abcd-1234-abcd-1234abcd1234",
+										"status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Kelly request car status",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "kelly",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8080/cars/6c018cfa-e9c2-4169-a61b-dd3bf3bc19a7/status",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cars",
+										"6c018cfa-e9c2-4169-a61b-dd3bf3bc19a7",
+										"status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "James request car status",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "james",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8080/cars/6c018cfa-e9c2-4169-a61b-dd3bf3bc19a7/status",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cars",
+										"6c018cfa-e9c2-4169-a61b-dd3bf3bc19a7",
+										"status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alice request car status",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "james",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8080/cars/6c018cfa-e9c2-4169-a61b-dd3bf3bc19a7/status",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cars",
+										"6c018cfa-e9c2-4169-a61b-dd3bf3bc19a7",
+										"status"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

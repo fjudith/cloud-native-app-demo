@@ -1,0 +1,175 @@
+Create a person based on the sent information
+---
+tags:
+  - person
+parameters:
+  - in: path
+    name: guid
+    type: string
+    description: the globally unique identifer (GUID) of the person
+  - in: body
+    name: profile
+    description: the JSON document describing the detailed information on a given person
+    schema:
+      type: object
+      required:
+        - GUID
+        - GivenName
+        - Surname
+        - EmailAddress
+      properties:
+        Age:
+          type: integer
+          description: The age of an individual
+        Birthday:
+          type: string
+          description: "The birthday date of an individual in the U.S format (e.g. MM/DD/YYYY)"
+        BloodType:
+          type: string
+          description: The blood type of an individual
+        BrowserUserAgent:
+          type: string
+          description: The user agent of the web browser used by an individual
+        CCExpires:
+          type: string
+          description: The expiration date of the credit card owned by an individual (e.g. MM/YYYY)
+        CCNumber:
+          type: integer
+          description: The number of the credit card owned by an individual
+        CCType:
+          type: string
+          description: The name of the provider of the credit card owned by an individual
+        CVV2:
+          type: integer
+          description: The visual cryptogram assciated with the credit card owned by an individual
+        Centimeters:
+          type: integer
+          description: The height estimated in centimeters of an individual
+        City:
+          type: string
+          description: The name of the city where an individual resides
+        Color:
+          type: string
+          description: The prefered color of an individual
+        Company:
+          type: string
+          description: The name of the company an individual is working for
+        Country:
+          type: string
+          description: The code of the country where an individual resides
+        CountryFull:
+          type: string
+          description: The name of the country where an individual resides
+        Domain:
+          type: string
+          description: The domain name of the website owned or associated to an individual
+        EmailAddress:
+          type: string
+          description: The email address owned by an individual
+        FeetInches:
+          type: string
+          description: The height estimated in feets of an individual
+        GUID:
+          type: string
+          description: The globally unique identifier of an individual
+        Gender:
+          type: string
+          description: The name sexual gender of an individual
+        GivenName:
+          type: string
+          description: The given name or first name of an individual
+        Kilograms:
+          type: float
+          descripiton: The weight estimated in kilograms of an individual
+        Latitude:
+          type: float
+          description: The latitude where an invidual can be found
+        Longitude:
+          type: float
+          description: The longitude where an invidual can be found
+        MiddleInitial:
+          type: string
+          description: The first letter of the middle name of an individual
+        MoneyGramMTCN:
+          type: integer
+          description: The Money Gram's money transfer control number of an individual
+        MothersMaiden:
+          type: string
+          description: The mother's maiden name of an individual
+        NameSet:
+          type: string
+          description: The language origin of the name associated to an individual
+        NationalID:
+          type: string
+          description: The national id assiociated to the identity card of an individual
+        Occupation:
+          type: string
+          description: The employment occupation of an individual
+        Password: 
+          type: string
+          description: The account password of an individual
+        Pounds:
+          type: string
+          description: The weight estimated in pounds of an individual
+        State:
+          type: string
+          description: The state code where an individual resides
+        StateFull:
+          type: string
+          description: The state name where an individual resides
+        StreetAddress:
+          type: string
+          description: The street address where an individual resides
+        Surname:
+          type: string
+          description: The surname or last name of an individual
+        TelephoneCountryCode:
+          type: integer
+          description: The country code associated to the telephone number of an individual
+        TelephoneNumber:
+          type: string
+          description: The telephone number of an individual
+        Title:
+          type: string
+          description: The title assiciated to an individual
+        TropicalZodiac:
+          type: string
+          description: the tropical zodiac sign associated to the birth date of an individual
+        UPS:
+          type: string
+          pattern: '/\b(1Z ?[0-9A-Z]{3} ?[0-9A-Z]{3} ?[0-9A-Z]{2} ?[0-9A-Z]{4} ?[0-9A-Z]{3} ?[0-9A-Z]|[\dT]\d\d\d ?\d\d\d\d ?\d\d\d)\b/'
+          description: The United Parcel Service tracking number of an individual
+        Username:
+          type: string
+          description: The account username of an individual
+        Vehicle:
+          type: string
+          description: The vehicle model date and name of the car owned by an individual
+        WesternUnionMTCN:
+          type: integer
+          pattern: '/^[0-9]{10}$/'
+          description: The Western Union's money transfer control number of an individual
+        ZipCode:
+          type: integer
+          description: The zip code associated to the city where an individual lives
+        Number:
+          type: integer
+          description: The number associated to an individual
+
+responses:
+  200:
+    description: The person was successfully updated
+    schema:
+      deleted: 0
+      errors: 0
+      inserted: 1
+      replaced: 0
+      unchanged: 0
+  409:
+    description: "Conflicting record"
+    schema:
+      message: "An existing record existing record has been found for GUID <guid>. Use the POST method to udpate it"
+  503:
+    description: "Cannot update the record"
+    schema:
+      message: "Record could not be inserted. Message: <error message>"

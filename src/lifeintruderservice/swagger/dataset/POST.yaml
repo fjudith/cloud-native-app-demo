@@ -1,0 +1,24 @@
+Import data from a dataset url to the database
+---
+tags:
+  - dataset
+parameters:
+  - name: body
+    in: body
+    schema:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The url of the dataset to be imported in the database
+responses:
+  200:
+    description: The dataset has been successfully imported in the database
+    schema:
+      deleted: 0
+      errors: 1
+      inserted: 999
+      replaced: 0
+      unchanged: 0
+      zrejected:
+        - "Duplicate primary key `GUID`..."

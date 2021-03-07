@@ -1,0 +1,59 @@
+Return a person key information based on his name
+---
+tags:
+  - person
+parameters:
+  - name: guid
+    in: path
+    type: string
+    description: the guid of a given person
+responses:
+  200:
+    description: The person's information were successfully retrieved
+    schema:
+      example:
+        Age: 21
+        Birthday: 3/5/1999
+        BloodType: A-
+        BrowserUserAgent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36
+        CCExpires: 6/2024
+        CCNumber: 5289394348337195
+        CCType: MasterCard
+        CVV2: 885
+        Centimeters: 163
+        City: VILLIERS-LE-BEL
+        Color: Blue
+        Company: White Hen Pantry
+        Country: FR
+        CountryFull: France
+        Domain: SurfPremium.fr
+        EmailAddress: ChristianeCormier@superrito.com
+        FeetInches: 5' 4\"
+        GUID: 85cf540e-ada4-4df1-82fc-cc05a73868e1
+        Gender: female
+        GivenName: Christiane
+        Kilograms: 83.3
+        Latitude: 49.076744
+        Longitude: 2.450637
+        MiddleInitial: A
+        MoneyGramMTCN: 88583794
+        MothersMaiden: Barrientos
+        NameSet: French
+        NationalID: 2990383876022 19
+        Occupation: Parole officer
+        Password: Eevait1Jie
+        Pounds: 183.3
+        State: IL
+        StateFull: Île-de-France
+        StreetAddress: 20 rue Marguerite
+        Surname: Cormier
+        TelephoneCountryCode: 33
+        TelephoneNumber: 01.96.95.27.97
+        Title: Ms.
+        TropicalZodiac: Pisces
+        UPS: 1Z 6A3 E99 64 7528 266 6
+        Username: Harle1999
+        Vehicle: 2003 Vauxhall Omega
+        WesternUnionMTCN: 5367493347
+        ZipCode: 95400
+        Number: 20

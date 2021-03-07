@@ -1,0 +1,32 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  api:
+    build: ./
+    image: fjudith/lifeintruderservice
+    environment:
+      LISTEN: 0.0.0.0
+      OPA_URL: http://opa:8181
+      RDB_HOST: rethinkdb
+    ports:
+      - "3000:3000"
+    links:
+      - opa
+      - rethinkdb
+  opa:
+    image: docker.io/openpolicyagent/opa:0.26.0
+    expose:
+      - "8181/tcp"
+    volumes:
+      - "./policy/lifeintruderservice.rego:/var/lib/opa/policy.rego"
+    command:
+      - run
+      - --server
+      - /var/lib/opa/policy.rego
+  rethinkdb:
+    image: docker.io/amd64/rethinkdb:2.4.1
+    ports: ["58080:8080","28015:28015"]
+    expose:
+      - "29015/tcp"
+      - "28015/tcp"
+    
+
