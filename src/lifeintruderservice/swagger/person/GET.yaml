@@ -1,4 +1,4 @@
-Return a person key information based on his name
+Return a person key information based on his globally unique identifier (GUID)
 ---
 tags:
   - person
