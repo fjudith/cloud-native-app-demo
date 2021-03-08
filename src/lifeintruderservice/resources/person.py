@@ -39,7 +39,7 @@ class PersonResource(Resource):
     @parse_params(
         Argument("profile", location="json", required=True, help="The profile of a person.")
     )
-    @swag_from("../swagger/user/PUT.yaml")
+    @swag_from("../swagger/person/PUT.yaml")
     def put(guid, profile):
         """ Create a person based on the sent information """
         person = PersonRepository.create(
