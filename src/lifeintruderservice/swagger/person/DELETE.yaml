@@ -1,0 +1,12 @@
+Delete all data related to a person key information based on his globally unique identifier (GUID)
+---
+tags:
+  - person
+parameters:
+  - name: guid
+    in: path
+    type: string
+    description: the guid of a given person
+responses:
+  200:
+    description: The person's information were successfully deleted

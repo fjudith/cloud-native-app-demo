@@ -19,7 +19,7 @@ class PersonResource(Resource):
     @staticmethod
     @swag_from("../swagger/person/GET.yaml")
     def get(guid):
-        """ Return an person key information base on his globally unique identitfier """
+        """ Return a person key information based on his globally unique identifier (GUID) """
         person = PersonRepository.get(guid=guid)
         return jsonify(person)
     
@@ -45,4 +45,11 @@ class PersonResource(Resource):
         person = PersonRepository.create(
             guid=guid, profile=profile
         )
+        return jsonify(person)
+    
+    @staticmethod
+    @swag_from("../swagger/person/DELETE.yaml")
+    def get(guid):
+        """ Delete all data related to a person key information based on his globally unique identifier (GUID) """
+        person = PersonRepository.remove(guid=guid)
         return jsonify(person)

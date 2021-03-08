@@ -39,6 +39,7 @@ class PersonRepository:
         except RqlRuntimeError as e:
             abort(503, f'Record could not be inserted. Message: {e}')
 
+    @staticmethod
     def update(self, guid, profile):
         """ Update a person's profile"""
         
@@ -47,9 +48,20 @@ class PersonRepository:
         if self.get(guid) == None:
             abort(404, f'No existing record existing record has been found for GUID {guid}. Use the PUT method to create it')
         
-        try:    
+        try:
             person = ast.literal_eval(profile)
             cursor = rdb.table(args.rethinkdb_table).filter({args.rethinkdb_primary_key: guid}).update(person).run(g.rdb_conn)
             return cursor
         except RqlRuntimeError as e:
             abort(503, f'Record could not be update. Message: {e}')
+    
+    @staticmethod
+    def remove(guid):
+        """ Remove a person by its globally unique identifier (GUID)"""
+
+        logger.info('Remove all individual related:"{0}"'.format(guid))
+
+        try:
+            rdb.table(args.rethinkdb_table).filter({args.rethinkdb_primary_key: guid}).delete().run(g.rdb_conn)
+        except RqlRuntimeError as e:
+            abort(404, f'Records for globally unique identifier (GUID) "{guid}" were not found. "{e}"')
