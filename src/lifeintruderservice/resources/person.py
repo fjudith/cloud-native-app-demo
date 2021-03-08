@@ -2,7 +2,6 @@
 Define the REST verbs relative to the persons
 """
 
-import json
 from flasgger import swag_from
 from flask.json import jsonify
 from flask_restful import Resource
@@ -10,8 +9,6 @@ from flask_restful.reqparse import Argument
 
 from repositories import PersonRepository
 from util import parse_params
-from server import request
-
 
 class PersonResource(Resource):
     """ Verbs relative to the persons """
@@ -23,6 +20,7 @@ class PersonResource(Resource):
         person = PersonRepository.get(guid=guid)
         return jsonify(person)
     
+
     @staticmethod
     @parse_params(
         Argument("profile", location="json", required=True, help="The profile of a person.")
@@ -42,14 +40,15 @@ class PersonResource(Resource):
     @swag_from("../swagger/person/PUT.yaml")
     def put(guid, profile):
         """ Create a person based on the sent information """
-        person = PersonRepository.create(
-            guid=guid, profile=profile
-        )
+        repository = PersonRepository()
+        person = repository.create(guid=guid, profile=profile)
         return jsonify(person)
     
+
     @staticmethod
     @swag_from("../swagger/person/DELETE.yaml")
-    def get(guid):
+    def delete(guid):
         """ Delete all data related to a person key information based on his globally unique identifier (GUID) """
-        person = PersonRepository.remove(guid=guid)
+        repository = PersonRepository()
+        person = repository.remove(guid=guid)
         return jsonify(person)

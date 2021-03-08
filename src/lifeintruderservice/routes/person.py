@@ -8,5 +8,5 @@ from resources import PersonResource
 
 PERSON_BLUEPRINT = Blueprint("person", __name__)
 Api(PERSON_BLUEPRINT).add_resource(
-    PersonResource, "/person/<string:guid>"
+    PersonResource, "/person/v1/<string:guid>"
 )
