@@ -78,7 +78,7 @@ server.config["SWAGGER"] = {
             "version": "0.0.1",
             "title": "Application",
             "endpoint": "spec",
-            "route": "/apis",
+            "route": "/apis/spec",
             "rule_filter": lambda rule: True,  # all in
         }
     ],
