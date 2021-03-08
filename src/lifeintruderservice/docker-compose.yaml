@@ -17,7 +17,7 @@ services:
     expose:
       - "8181/tcp"
     volumes:
-      - "./policy/lifeintruderservice.rego:/var/lib/opa/policy.rego"
+      - "../../policy/lifeintruderservice.rego:/var/lib/opa/policy.rego"
     command:
       - run
       - --server

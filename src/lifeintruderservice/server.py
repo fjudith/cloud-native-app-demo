@@ -1,3 +1,5 @@
+import json
+import requests
 from flasgger import Swagger
 from flask import Flask, request, abort, g
 from flask.blueprints import Blueprint
@@ -13,11 +15,44 @@ server = Flask(__name__)
 # open connection before each request
 @server.before_request
 def before_request():
-    logger.debug('Connecing to database host:"{0}"'.format(args.rethinkdb_host))
-    try:
-        g.rdb_conn = rdb.connect(host=args.rethinkdb_host, port=args.rethinkdb_port, db=args.rethinkdb_database)
-    except RqlDriverError:
-        abort(503, "Database connection could be established.")
+    # Open Policy Agent request filtering
+    def check_authorization():
+        try:
+            input_request = json.dumps({
+                            "method": request.method,
+                            "path": request.path.strip().split("/")[1:],
+                            "user": get_authentication(request),
+            }, indent=2)
+            url = args.opa_url
+            server.logger.debug("OPA query: %s. Body: %s", url, input_request)
+            response = requests.post(url, data=input_request)
+        except Exception as e:
+            server.logger.exception("Unexpected error querying OPA.")
+            abort(500)
+
+        if response.status_code != 200:
+            server.logger.error("OPA status code: %s. Body: %s",
+                            response.status_code, response.json())
+            abort(500)
+
+        allowed = response.json()
+        server.logger.debug("OPA result: %s", allowed)
+        if not allowed:
+            abort(403)
+
+    def get_authentication(request):
+        return request.headers.get("Authorization", "")
+    
+    # RethinkDB data persistence
+    def connect_database():
+        logger.debug('Connecing to database host:"{0}"'.format(args.rethinkdb_host))
+        try:
+            g.rdb_conn = rdb.connect(host=args.rethinkdb_host, port=args.rethinkdb_port, db=args.rethinkdb_database)
+        except RqlDriverError:
+            abort(503, "Database connection could be established.")
+    
+    check_authorization()
+    connect_database()
 
 # close the connection after each request
 @server.teardown_request
