@@ -6,23 +6,23 @@ default allow = false
 
 allow {
 	input.method = "GET"
-	input.path = ["apis", "spec"]
+	input.path = [""]
+}
+
+allow {
+	input.method = "POST"
+	input.path = [""]
 }
 
 allow {
 	input.method = "GET"
-	input.path = ["apidocs"]
+	input.path = ["apis", "spec"]
 }
 
 allow {
 	input.method = "POST"
 	input.path = ["apis", "dataset"]
 	has_role("manager")
-}
-
-allow {
-	input.method = "GET"
-	input.path = [""]
 }
 
 allow {
