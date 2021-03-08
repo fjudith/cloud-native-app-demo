@@ -5,9 +5,6 @@ from flask import Blueprint
 from flask_restful import Api
 
 from resources import PersonResource
-from config import logger
-
-logger.info(f'Routing to /person/<string:guid>')
 
 PERSON_BLUEPRINT = Blueprint("person", __name__)
 Api(PERSON_BLUEPRINT).add_resource(
