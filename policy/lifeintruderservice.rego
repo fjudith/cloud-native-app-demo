@@ -16,6 +16,11 @@ allow {
 
 allow {
 	input.method = "GET"
+	input.path = ["metrics"]
+}
+
+allow {
+	input.method = "GET"
 	input.path = ["apis", "spec"]
 }
 

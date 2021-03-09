@@ -1,8 +1,12 @@
 import json
 import requests
-from flasgger import Swagger
+
 from flask import Flask, request, abort, g
 from flask.blueprints import Blueprint
+from flasgger import Swagger
+
+# from prometheus_flask_exporter import PrometheusMetrics
+from prometheus_flask_exporter import RESTfulPrometheusMetrics
 
 from config import args, logger
 import routes
@@ -10,7 +14,10 @@ from models import rdb
 
 from rethinkdb.errors import RqlDriverError
 
+
 server = Flask(__name__)
+# PrometheusMetrics(server, path='/metrics')
+metrics = RESTfulPrometheusMetrics(server, routes)
 
 # open connection before each request
 @server.before_request
