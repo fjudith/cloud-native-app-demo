@@ -21,7 +21,10 @@ parser.add_argument('--rethinkdb-table', help='Specifies the RethinkDB table nam
 parser.add_argument('--rethinkdb-primary-key', help='Specifies the RethinkDB table primary key.', default=os.environ.get('RDB_PKEY', 'GUID'))
 # open policy agent config
 parser.add_argument('-u', '--opa-url', help='Specifies the OPA proxy server URL.', default=os.environ.get('OPA_URL', 'http://localhost:8181'))
-
+# opentelemetry/jaeger
+parser.add_argument('--jaeger-agent-host', help='Specifies the host name or ip address of the Jaeger agent.', default=os.environ.get('JAEGER_AGENT_HOST', 'localhost'))
+parser.add_argument('--jaeger-agent-port', help='Specifies port to connect to the Jaeger agent.', default=os.environ.get('JAEGER_AGENT_PORT', 6831))
+# debugging
 parser.add_argument('-d', '--debug', help="Enable debug logging", action="store_true")
 args = parser.parse_args()
 

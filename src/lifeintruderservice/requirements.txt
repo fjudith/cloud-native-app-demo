@@ -1,3 +1,5 @@
+flask==1.1.2
+six==1.14.0
 Flask-Migrate==2.7.0
 Flask-RESTful==0.3.8
 Flask-Script==2.0.6
@@ -8,7 +10,14 @@ itsdangerous==1.1.0
 pytz==2021.1
 requests==2.25.1
 setproctitle==1.1.10
-six==1.12.0
 rethinkdb==2.4.8
 prometheus_client==0.9.0
 prometheus_flask_exporter==0.18.0
+# jaeger_client==4.4.0
+# opentracing==2.4.0
+# Flask-Opentracing==1.1.0
+opentelemetry-api==1.0.0rc1
+opentelemetry-sdk==1.0.0rc1
+opentelemetry-exporter-jaeger==1.0.0rc1
+opentelemetry-instrumentation-flask==0.18b1
+opentelemetry-instrumentation-requests==0.18b1

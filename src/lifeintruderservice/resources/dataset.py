@@ -8,7 +8,7 @@ from flask_restful import Resource
 from flask_restful.reqparse import Argument
 
 from repositories import DatasetRepository
-from util import parse_params
+from utils import parse_params
 
 class DatasetResource(Resource):
     """ Verbs relative to the datasets """

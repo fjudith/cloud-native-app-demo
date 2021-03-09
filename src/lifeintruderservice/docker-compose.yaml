@@ -7,11 +7,20 @@ services:
       LISTEN: 0.0.0.0
       OPA_URL: http://opa:8181
       RDB_HOST: rethinkdb
+      JAEGER_AGENT_HOST: jaeger
+      JAEGER_AGENT_PORT: 6831
     ports:
       - "3000:3000"
     links:
-      - opa
       - rethinkdb
+      - opa
+      - jaeger
+  rethinkdb:
+    image: docker.io/amd64/rethinkdb:2.4.1
+    ports: ["58080:8080","28015:28015"]
+    expose:
+      - "29015/tcp"
+      - "28015/tcp"
   opa:
     image: docker.io/openpolicyagent/opa:0.26.0
     expose:
@@ -22,11 +31,12 @@ services:
       - run
       - --server
       - /var/lib/opa/policy.rego
-  rethinkdb:
-    image: docker.io/amd64/rethinkdb:2.4.1
-    ports: ["58080:8080","28015:28015"]
-    expose:
-      - "29015/tcp"
-      - "28015/tcp"
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    environment:
+        LOG_LEVEL: debug
+    ports:
+      - "6831:6831/udp"
+      - "16686:16686"
     
 

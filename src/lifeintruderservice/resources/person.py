@@ -8,7 +8,7 @@ from flask_restful import Resource
 from flask_restful.reqparse import Argument
 
 from repositories import PersonRepository
-from util import parse_params
+from utils import parse_params
 
 class PersonResource(Resource):
     """ Verbs relative to the persons """

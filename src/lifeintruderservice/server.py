@@ -1,23 +1,24 @@
 import json
 import requests
 
+# ----- Flask -----
 from flask import Flask, request, abort, g
 from flask.blueprints import Blueprint
 from flasgger import Swagger
 
-# from prometheus_flask_exporter import PrometheusMetrics
-from prometheus_flask_exporter import RESTfulPrometheusMetrics
-
-from config import args, logger
-import routes
-from models import rdb
-
+# ----- RethinkDB -----
 from rethinkdb.errors import RqlDriverError
 
+# ----- Internal -----
+from config import args, logger
+import routes
+from utils.metrics import start_openmetrics
+from utils.telemetry import start_opentelemetry
+from models import rdb
 
 server = Flask(__name__)
-# PrometheusMetrics(server, path='/metrics')
-metrics = RESTfulPrometheusMetrics(server, routes)
+start_openmetrics(app=server, routes=routes)
+start_opentelemetry(app=server)
 
 # open connection before each request
 @server.before_request
@@ -49,7 +50,7 @@ def before_request():
 
     def get_authentication(request):
         return request.headers.get("Authorization", "")
-    
+
     # RethinkDB data persistence
     def connect_database():
         logger.debug('Connecing to database host:"{0}"'.format(args.rethinkdb_host))
