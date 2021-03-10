@@ -15,10 +15,10 @@ The service is intrumented with the following technologies to acheive better obs
 Tool | Description | Website
 ---- | ----------- | -------
 Flask Prometheus exporter | An integrated OpenMetrics/Prometheus compliant library to export Flask metrics | <https://pypi.org/project/prometheus-flask-exporter>
-Flask OpenTracing | An integrated OpenTracing compliant libray to export Flask traces | <https://pypi.org/project/Flask-OpenTracing> 
+OpenTelemetry | An integrated OpenTelemetry compliant libray to export Flask traces | <https://opentelemetry-python.readthedocs.io> 
 OpenPolicyAgent | A externl policy enforcement agent to sercure the RESTful API calls | <https://openpolicyagent.org>
 
-![Life Intruder service instrumentation](../media/diagrams/lifeintruderservice_instrumentation.png)
+![Life Intruder service instrumentation](../media/diagrams/lifeintruderservice_instrumentation.drawio.svg)
 
 ## Data schema
 
