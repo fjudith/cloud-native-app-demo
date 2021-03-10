@@ -20,6 +20,29 @@ OpenPolicyAgent | A external policy enforcement agent to sercure the RESTful API
 
 ![Life Intruder service instrumentation](../media/diagrams/lifeintruderservice_instrumentation.drawio.svg)
 
+
+## RBAC
+
+The service leverage [Open Policy Agent](https://openpolicyagent.org) for the access control to the API resources, following roles are defined
+
+* **Anonymous**: Limited to read the API specifications and metrics
+* **Manager**: Authorized to add datasets, and manage any of the persons profiles
+* **Operator**: Limited to update persons profiles
+* **Reviewer**: Limited to ready all profiles at once
+* **Reader** : Limited to read a given person profile at once
+
+Action | Description | Anonymous | Manager | Operator | Reviewer | Reader
+------ | ----------- | :-------: | :-----: | :------: | :------: | :----:
+`GET /apis/spec` | Read API Specifications | +
+`GET /metrics` | Read service metrics _(OpenMetris:Prometheus)_ | +
+`GET /apidocs` | Access Swagger API documentation | +
+`PUT /apis/dataset/v1` | Import a dataset |  | + |
+`GET /apis/dataset/v1` | Export all data |  | + | | + |
+`GET /apis/person/v1/<guid:string>`  | Read the profile a given person by its GUID | | + | + | + | +
+`PUT /apis/person/v1/<guid:string>` | Add a person's profile | | + |
+`POST /apis/person/v1/<guid:string>` | Update a person's profile | | + | +
+`DELETE /apis/person/v1/<guid:string>` | Remove a person's profile | | + |
+
 ## Data schema
 
 The schema of the database is based on the [Fake Name Generator](https://fakenamegenerator.com) delivry capabilities.
