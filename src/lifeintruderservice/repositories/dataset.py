@@ -34,13 +34,6 @@ class DatasetRepository:
         }
 
         # check that dataset exists
-        try:
-            request_response = requests.head(url)
-        except Exception as e:
-            logger.error('Could not find: "{0}", response: {1}'.format(url, e))
-            abort(500)
-
-        # check that dataset exists
         request_response = requests.head(url)
         if not request_response.status_code == 200:
             logger.error('Could not find: "{0}", response: {1}'.format(url, request_response))
@@ -67,4 +60,19 @@ class DatasetRepository:
                 except RqlRuntimeError as e:
                     abort(503, f'Record could not be inserted. Message: {e}')
             
-            return output        
+            return output
+        
+
+    @staticmethod
+    def get():
+        """ Export all data stored in the database """
+
+        try:
+            cursor = rdb.table(args.rethinkdb_table).run(g.rdb_conn)
+            output = []
+            for document in cursor:
+                output.append(document)
+        except RqlRuntimeError as e:
+            abort(503, f'Cannot collect data from the database. Message: {e}')
+
+        return output

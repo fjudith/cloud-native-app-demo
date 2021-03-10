@@ -24,3 +24,10 @@ class DatasetResource(Resource):
             url=url
         )
         return jsonify(person)
+
+    @staticmethod
+    @swag_from("../swagger/dataset/GET.yaml")
+    def get():
+        """ Return a person key information based on his globally unique identifier (GUID) """
+        person = DatasetRepository.get()
+        return jsonify({'items': person})

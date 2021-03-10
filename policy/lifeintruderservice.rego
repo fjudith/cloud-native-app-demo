@@ -25,6 +25,12 @@ allow {
 }
 
 allow {
+	input.method = "GET"
+	input.path = ["apis", "dataset", "v1"]
+	has_role("reviewer")
+}
+
+allow {
 	input.method = "POST"
 	input.path = ["apis", "dataset", "v1"]
 	has_role("manager")
@@ -61,7 +67,9 @@ has_role(name) {
 }
 
 employees = {
-	"alice": {"roles": {"manager", "operator"}},
-	"james": {"roles": {"manager"}},
+	"alice": {"roles": {"manager", "operator","reviewer"}},
+	"james": {"roles": {"manager", "reviewer"}},
 	"kelly": {"roles": {"operator"}},
+	"steve":  {"roles": {"reader"}},
+	"opra" : {"roles": {"reviewer"}},
 }
