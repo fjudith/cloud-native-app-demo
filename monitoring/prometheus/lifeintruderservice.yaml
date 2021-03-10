@@ -1,0 +1,8 @@
+scrape_configs:
+  - job_name: 'lifeintruderservice'
+
+    dns_sd_configs:
+      - names: ['api']
+        port: 3000
+        type: A
+        refresh_interval: 5s

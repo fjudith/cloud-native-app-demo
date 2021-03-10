@@ -1,4 +1,9 @@
 version: "3.9"  # optional since v1.27.0
+
+secrets:
+  admin_password:
+    file: "../../monitoring/grafana/admin_password.txt"
+
 services:
   api:
     build: ./
@@ -9,6 +14,7 @@ services:
       RDB_HOST: rethinkdb
       JAEGER_AGENT_HOST: jaeger
       JAEGER_AGENT_PORT: 6831
+      TZ: Europe/Paris
     ports:
       - "3000:3000"
     links:
@@ -35,8 +41,40 @@ services:
     image: jaegertracing/all-in-one:latest
     environment:
         LOG_LEVEL: debug
+        TZ: Europe/Paris
     ports:
       - "6831:6831/udp"
       - "16686:16686"
+  prometheus:
+    image: prom/prometheus:v2.1.0
+    environment:
+      TZ: Europe/Paris
+    volumes:
+      - "../../monitoring/prometheus/lifeintruderservice.yaml:/etc/prometheus/prometheus.yml"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    links:
+      - api
+    ports:
+      - 9090:9090
+    restart: always
+  grafana:
+    image: grafana/grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD__FILE: "/run/secrets/admin_password.txt"
+      TZ: Europe/Paris
+    links:
+      - prometheus
+    ports:
+      - 53000:3000
+    volumes:
+      - "../../monitoring/grafana/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml"
+      - "../../monitoring/grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml"
+      - "../../monitoring/grafana/lifeintruderservice.json:/grafana-dashboard-definitions/0/lifeintruderservice/lifeintruderservice.json"
+    secrets:
+      - admin_password
     
 
