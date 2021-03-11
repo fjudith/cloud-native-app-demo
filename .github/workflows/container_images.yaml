@@ -58,16 +58,36 @@ jobs:
           password: ${{ secrets.QUAY_PASSWORD }} 
 
       - name: Build & Push image to Docker
+        id: dockerbuild
+        uses: docker/build-push-action@v2
+        with:
+          context: ./src/${{ matrix.image }}
+          load: true
+          tags: docker.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:${{ github.sha }}
+          file: ./src/${{ matrix.image }}/Dockerfile
+          platforms: linux/amd64
+
+      - name: Scan for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: docker.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:${{ github.sha }}
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Push image to Docker Hub registry
         id: dockerhub
         uses: docker/build-push-action@v2
         with:
           context: ./src/${{ matrix.image }}
-          push: true
+          puth: true
           tags: docker.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:${{ env.SEMVER_MAJOR }},docker.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:${{ env.SEMVER_MINOR }},docker.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:${{ env.SEMVER_PATCH }},docker.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:${{ env.SEMVER_TAG }},docker.io/${{ env.DOCKER_REPO }}/${{ matrix.image }}:latest
           file: ./src/${{ matrix.image }}/Dockerfile
           platforms: linux/amd64
       
-      - name: Push image to Quay
+      - name: Push image to Quay registry
         id: quay
         uses: docker/build-push-action@v2
         with:
